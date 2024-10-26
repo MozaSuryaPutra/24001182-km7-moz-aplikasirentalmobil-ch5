@@ -38,7 +38,7 @@ exports.updateCars = async (req, res, next) => {
       : Cars.availableAt,
   };
   const updateTheCars = await carService.updateCars(id, requestBody, req.files);
-  successResponse(res, updateTheCars, "Update Student is Success");
+  successResponse(res, updateTheCars, "Update Cars is Success");
 };
 
 exports.deleteCarsById = async (req, res, next) => {
