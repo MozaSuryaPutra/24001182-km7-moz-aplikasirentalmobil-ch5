@@ -8,7 +8,8 @@ exports.validateGetCars = (req, res, next) => {
       .transform((val) => parseInt(val, 10))
       .refine((val) => !isNaN(val) && val > 0, {
         message: "Capacity must be a positive number",
-      }),
+      })
+      .optional(),
     // availableAt: z.string().refine(
     //   (date) => {
     //     const datePattern = /^\d{4}-\d{2}-\d{2}$/;
