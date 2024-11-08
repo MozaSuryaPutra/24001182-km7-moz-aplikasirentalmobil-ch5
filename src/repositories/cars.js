@@ -4,21 +4,9 @@ const { PrismaClient } = require("@prisma/client");
 const JSONBigInt = require("json-bigint");
 
 const prisma = new PrismaClient();
-exports.getCars = async (capacity) => {
-  // Convert capacity to number if it is a string
-  const numericCapacity = Number(capacity);
-
-  const searchedCars = await prisma.cars.findMany({
-    where: {
-      carsModels: {
-        // Melakukan filtering berdasarkan capacity yang ada di car_types
-        car_types: {
-          capacity: {
-            gte: numericCapacity,
-          },
-        },
-      },
-    },
+exports.getCars = async () => {
+  // Ambil semua mobil tanpa filter capacity
+  const allCars = await prisma.cars.findMany({
     include: {
       carsModels: {
         include: {
@@ -29,7 +17,7 @@ exports.getCars = async (capacity) => {
   });
 
   // Convert BigInt fields to string for safe serialization
-  const serializedCars = JSONBigInt.stringify(searchedCars);
+  const serializedCars = JSONBigInt.stringify(allCars);
   return JSONBigInt.parse(serializedCars);
 };
 
